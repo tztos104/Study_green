@@ -27,7 +27,8 @@
 
                     <tr>
                         <td>
-                            <input type="text" name="memberid" value="글쓴이 : {{board[5]}}" readonly>
+                            <input type="text" name="memberid" value="글쓴이 : {{board[6]}}{% if board[4] %}(수정일 : {{board[3]}})
+                {% else %}(작성일 : {{board[3]}}){% endif %}" readonly>
 
                         </td>
                     </tr>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>main 페이지</title>
+    <link rel="stylesheet" href="{% static 'poll/css/style.css'%}">
+</head>
+<body>
+    <div id="container">
+        <section id="main">
+            <div class="poll">
+                <a href="{%url 'poll:poll_list' %}">
+                    <img src="{% static 'poll/images/vote.JPG' %}" alt="투표">
+                    <p>설문 투표 바로가기</p>
+                </a>
+            </div>
+            <div class="ocr">
+                <a href="">
+                    <img src="{% static 'poll/images/ocr.png' %}" alt="투표">
+                    <p>설문 투표 바로가기</p>
+                </a>
+            </div>
+
+
+        </section>
+    </div>
+</body>
+</html>

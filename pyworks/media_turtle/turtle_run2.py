@@ -3,7 +3,6 @@ import random
 
 def turn_right():
     t.setheading(0)
-
 def turn_up():
     t.setheading(90)
 
@@ -18,6 +17,7 @@ def start(): #게임을 시작하는 함수
         playing = True
         t.clear()          #메시지를 지움
         play()
+
 def message(m1, m2):
     t.clear()
     t.goto(0, 100)
@@ -26,45 +26,6 @@ def message(m1, m2):
     t.write(m2, False, "center", ("", 15))
     t.home()
 
-
-def play():
-    global score
-    global playing
-    # 적 거북이가 주인공 거북이쪽보며 쫒어가기
-    t.forward(10)
-    if random.randint(1, 6) == 3:  # 3을 뽑을 확률은 20%
-        ang = te.towards(t.pos())
-        te.setheading(ang)
-
-    speed = score + 5
-    if speed > 15:
-        speed = 15
-    te.forward(speed)
-
-    # 주인공 거북이가 적 거북이에 닿으면 게임 종료
-    if t.distance(te) < 12:
-        text = "Score : " + str(score)
-        message("Game Over", text)
-        playing = False
-        score = 0
-
-    # 주인공 거북이가 먹이에 닿으면 점수가 올라감
-    if t.distance(tf) < 12:
-        score = score + 1
-        # t.write(score)  #점수 출력
-        t.write(score, False, "center", ("", 15))
-        start_x = random.randint(-230, 230)
-        start_y = random.randint(-230, 230)
-        tf.goto(start_x, start_y)
-
-    # 게임 실행(0.1초 콜백)
-    if playing:
-        t.ontimer(play, 100)
-
-
-
-
-
 #주인공 거북이
 t.setup(500, 500)
 t.bgcolor('blue')
@@ -72,7 +33,6 @@ t.shape('turtle')
 t.speed(0)
 t.up()
 t.color('red')
-
 #점수와 게임 스위치 변수
 score = 0
 playing = False
@@ -93,6 +53,38 @@ tf.speed(0)
 tf.up()
 tf.goto(0, -200)
 
+def play():
+    global score
+    global playing
+    #적 거북이가 주인공 거북이쪽보며 쫒어가기
+    t.forward(10)
+    if random.randint(1,5) == 3: #3을 뽑을 확률은 20%
+        ang = te.towards(t.pos())
+        te.setheading(ang)
+
+    speed = score + 5
+    if speed >15:
+        speed = 15
+    te.forward(speed)
+
+    #주인공 거북이가 적 거북이에 닿으면 게임 종료
+    if t.distance(te) <12:
+        text = "Score : " + str(score)
+        message("Game Over", text)
+        palying = False
+        score = 0
+
+    #주인공 거북이가 먹이에 닿으면 점수가 올라감
+    if t.distance(tf) < 12:
+        score += 1
+        t.write(score) #점수 출력
+        start_x = random.randint(-230, 230)
+        start_y = random.randint(-230, 230)
+        tf.goto(start_x, start_y)
+
+    #게임 실행(0.1초 콜백)
+    if playing:
+        t.ontimer(play, 100)
 
 
 #키 조종
@@ -105,6 +97,7 @@ t.listen()
 message("Turtle Run" , "[Space]")
 
 
+
+
+
 t.mainloop()
-
-

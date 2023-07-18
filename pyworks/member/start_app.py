@@ -2,6 +2,7 @@
 import sqlite3
 
 from flask import Flask, render_template, request, redirect, url_for, session
+import datetime
 
 app = Flask(__name__)
 app.secret_key = "asddferfdgsfdg"
@@ -58,6 +59,7 @@ def register():
 def login():
     if request.method == "POST":
         #로그인폼에 입력된 데이터 넘겨 받음
+
         id = request.form['memberid']
         pw = request.form['passwd']
 
@@ -129,7 +131,7 @@ def detail(bno):
     cursor.execute(sql)
     board = cursor.fetchone()#게시글 1개 가져옴
     #조회수 증가
-    hit = board[4]
+    hit = board[5]
     sql = f"UPDATE board SET hit = {hit +1} WHERE bno= {bno}"
     cursor.execute(sql)
     conn.commit()
@@ -154,9 +156,11 @@ def update(bno):
         #수정페이지에 수정한 입력한 내용ㅇ을 DB에 저장
         title = request.form['title'].replace("'","''")
         content = request.form['content'].replace("'","''")
+        now = datetime.datetime.today()
+        modifydate =now.strftime("%Y-%m-%d. %H:%M:%S")
         conn = getconn()
         cursor = conn.cursor()
-        sql = f"UPDATE board SET title = '{title}', content = '{content}' WHERE bno={bno}"
+        sql = f"UPDATE board SET title = '{title}', content = '{content}', modifydate='{modifydate}' WHERE bno={bno}"
         cursor.execute(sql)
         conn.commit()
         conn.close()
